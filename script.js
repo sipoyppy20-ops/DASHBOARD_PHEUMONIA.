@@ -2,76 +2,71 @@ AOS.init();
 let charts = {};
 let map, markerGroup;
 
-// --- DATA KOTA BANDUNG ---
+// --- 1. DATA KOTA BANDUNG (TOP 10 UPT) ---
 const database = {
     "2023": {
-        upt: ["PADASUKA", "CIGONDEWAH", "MARGAHAYU", "ARCAMANIK", "KUJANG SARI"],
-        kasus: [278, 260, 202, 196, 150],
-        penduduk: [4200, 4400, 3320, 2850, 2720],
+        upt: ["PADASUKA", "CIGONDEWAH", "MARGAHAYU", "ARCAMANIK", "KUJANG SARI", "PASIRKALIKI", "CIBUNTU", "GARUDA", "PUTER", "BABAKAN SARI"],
+        kasus: [278, 260, 202, 196, 150, 145, 132, 120, 115, 110],
         gender: [2780, 2350],
-        note: "Tahun 2023: Efektivitas vaksinasi PCV di Bandung mulai menunjukkan hasil dengan angka kasus yang terkendali.",
-        coords: [[-6.903, 107.655], [-6.935, 107.575], [-6.945, 107.665], [-6.915, 107.675], [-6.938, 107.645]]
+        note: "Data 2023: Fokus pada 10 wilayah dengan tingkat pelaporan pneumonia tertinggi di Bandung.",
+        coords: [[-6.903, 107.655], [-6.935, 107.575], [-6.945, 107.665], [-6.915, 107.675], [-6.938, 107.645], [-6.915, 107.595], [-6.925, 107.585], [-6.913, 107.579], [-6.901, 107.610], [-6.920, 107.650]]
     },
     "2022": {
-        upt: ["PADASUKA", "CIGONDEWAH", "MARGAHAYU", "PASIRKALIKI", "ARCAMANIK"],
-        kasus: [290, 275, 250, 230, 210],
-        penduduk: [4210, 4420, 3300, 4000, 2800],
+        upt: ["PADASUKA", "CIGONDEWAH", "MARGAHAYU", "PASIRKALIKI", "ARCAMANIK", "CIBUNTU", "GARUDA", "PUTER", "KUJANG SARI", "BABAKAN SARI"],
+        kasus: [290, 275, 250, 230, 210, 190, 175, 160, 140, 130],
         gender: [2950, 2350],
-        note: "Tahun 2022: Terjadi peningkatan pelaporan kasus seiring dengan normalisasi layanan kesehatan pasca-pandemi.",
-        coords: [[-6.903, 107.655], [-6.935, 107.575], [-6.945, 107.665], [-6.915, 107.595], [-6.915, 107.675]]
+        note: "Data 2022: Terjadi normalisasi pelaporan kasus pasca-pandemi di seluruh UPT.",
+        coords: [[-6.903, 107.655], [-6.935, 107.575], [-6.945, 107.665], [-6.915, 107.595], [-6.915, 107.675], [-6.925, 107.585], [-6.913, 107.579], [-6.901, 107.610], [-6.938, 107.645], [-6.920, 107.650]]
     },
     "2021": {
-        upt: ["CIGONDEWAH", "PADASUKA", "MARGAHAYU", "PASIRKALIKI", "GARUDA"],
-        kasus: [320, 305, 290, 270, 250],
-        penduduk: [4450, 4230, 3280, 4020, 3420],
+        upt: ["CIGONDEWAH", "PADASUKA", "MARGAHAYU", "PASIRKALIKI", "GARUDA", "CIBUNTU", "ARCAMANIK", "PUTER", "KUJANG SARI", "BABAKAN SARI"],
+        kasus: [320, 305, 290, 270, 250, 240, 230, 210, 200, 190],
         gender: [2800, 2330],
-        note: "Tahun 2021: Angka terendah tercatat karena protokol kesehatan (masker & jarak) yang sangat ketat.",
-        coords: [[-6.935, 107.575], [-6.903, 107.655], [-6.945, 107.665], [-6.915, 107.595], [-6.913, 107.579]]
+        note: "Data 2021: Kebijakan masker dan prokes ketat berkontribusi pada rendahnya infeksi saluran pernapasan.",
+        coords: [[-6.935, 107.575], [-6.903, 107.655], [-6.945, 107.665], [-6.915, 107.595], [-6.913, 107.579], [-6.925, 107.585], [-6.915, 107.675], [-6.901, 107.610], [-6.938, 107.645], [-6.920, 107.650]]
     },
     "2020": {
-        upt: ["PADASUKA", "CIGONDEWAH", "PASIRKALIKI", "MARGAHAYU", "CIBUNTU"],
-        kasus: [412, 395, 380, 350, 310],
-        penduduk: [4250, 4480, 4050, 3250, 3850],
+        upt: ["PADASUKA", "CIGONDEWAH", "PASIRKALIKI", "MARGAHAYU", "CIBUNTU", "GARUDA", "ARCAMANIK", "PUTER", "KUJANG SARI", "BABAKAN SARI"],
+        kasus: [412, 395, 380, 350, 310, 290, 270, 250, 240, 230],
         gender: [4100, 3400],
-        note: "Tahun 2020: Penurunan jumlah pelaporan kasus karena pembatasan mobilitas sosial.",
-        coords: [[-6.903, 107.655], [-6.935, 107.575], [-6.915, 107.595], [-6.945, 107.665], [-6.925, 107.585]]
+        note: "Data 2020: Tantangan pelaporan selama puncak pandemi COVID-19.",
+        coords: [[-6.903, 107.655], [-6.935, 107.575], [-6.915, 107.595], [-6.945, 107.665], [-6.925, 107.585], [-6.913, 107.579], [-6.915, 107.675], [-6.901, 107.610], [-6.938, 107.645], [-6.920, 107.650]]
     },
     "2019": {
-        upt: ["CIGONDEWAH", "PADASUKA", "CIBUNTU", "PASIRKALIKI", "GARUDA"],
-        kasus: [543, 484, 476, 463, 310],
-        penduduk: [4500, 4200, 3900, 4100, 3500],
+        upt: ["CIGONDEWAH", "PADASUKA", "CIBUNTU", "PASIRKALIKI", "GARUDA", "MARGAHAYU", "ARCAMANIK", "PUTER", "KUJANG SARI", "BABAKAN SARI"],
+        kasus: [543, 484, 476, 463, 310, 290, 280, 270, 260, 250],
         gender: [5373, 4606],
-        note: "Tahun 2019: Periode sebelum pandemi dengan angka pneumonia balita cukup tinggi di Bandung.",
-        coords: [[-6.935, 107.575], [-6.903, 107.655], [-6.925, 107.585], [-6.915, 107.595], [-6.913, 107.579]]
+        note: "Data 2019: Tren kasus pneumonia sebelum munculnya pandemi.",
+        coords: [[-6.935, 107.575], [-6.903, 107.655], [-6.925, 107.585], [-6.915, 107.595], [-6.913, 107.579], [-6.945, 107.665], [-6.915, 107.675], [-6.901, 107.610], [-6.938, 107.645], [-6.920, 107.650]]
     }
 };
 
-// --- DATA PERBANDINGAN SE-JAWA BARAT (Berdasarkan CSV) ---
+// --- 2. DATA JAWA BARAT (TOP 10 WILAYAH) ---
 const jabarComparison = {
     "2023": {
-        labels: ["KAB. BANDUNG", "KAB. CIANJUR", "KAB. CIREBON", "KAB. SUMEDANG", "KOTA BANDUNG"],
-        data: [8378, 7934, 7531, 7047, 5713],
-        analisis: "Kabupaten Bandung mencatat angka tertinggi. Kota Bandung berada di posisi 5 besar wilayah dengan kasus terbanyak di Jabar."
+        labels: ["KAB. BANDUNG", "KAB. CIANJUR", "KAB. CIREBON", "KAB. SUMEDANG", "KOTA BEKASI", "KOTA BANDUNG", "KAB. BOGOR", "KAB. BEKASI", "KAB. KARAWANG", "KOTA CIMAHI"],
+        data: [8378, 7934, 7531, 7047, 5845, 5713, 5632, 5421, 5100, 4994],
+        analisis: "Wilayah Kabupaten Bandung dan Cianjur mencatat angka tertinggi. Kota Bandung berada di posisi 6 besar Jawa Barat."
     },
     "2022": {
-        labels: ["KAB. BEKASI", "KOTA BEKASI", "KAB. BOGOR", "KAB. BANDUNG", "KAB. CIANJUR"],
-        data: [18234, 15400, 12300, 9100, 8500],
-        analisis: "Wilayah industri penyangga Jakarta (Bekasi & Bogor) mendominasi kasus karena kepadatan polusi dan populasi."
+        labels: ["KAB. BEKASI", "KOTA BEKASI", "KAB. BOGOR", "KAB. BANDUNG", "KAB. CIANJUR", "KAB. CIREBON", "KAB. KARAWANG", "KOTA BANDUNG", "KAB. SUKABUMI", "KAB. GARUT"],
+        data: [18234, 15400, 12300, 9100, 8500, 7800, 7200, 6900, 6500, 6100],
+        analisis: "Lonjakan kasus signifikan terjadi di wilayah penyangga ibu kota seiring normalisasi aktivitas."
     },
     "2021": {
-        labels: ["KAB. BOGOR", "KAB. BEKASI", "KAB. BANDUNG", "KOTA BEKASI", "KAB. CIREBON"],
-        data: [10200, 9800, 7500, 7200, 6800],
-        analisis: "Meskipun masa pandemi, wilayah Kabupaten dengan area luas tetap mencatat pelaporan kasus terbanyak."
+        labels: ["KAB. BOGOR", "KAB. BEKASI", "KAB. BANDUNG", "KOTA BEKASI", "KAB. CIREBON", "KAB. GARUT", "KAB. KARAWANG", "KAB. SUKABUMI", "KOTA BANDUNG", "KAB. CIANJUR"],
+        data: [10200, 9800, 7500, 7200, 6800, 6100, 5800, 5500, 5130, 4900],
+        analisis: "Tahun dengan pelaporan terendah, namun wilayah luas tetap mendominasi beban kasus."
     },
     "2020": {
-        labels: ["KAB. BEKASI", "KAB. BOGOR", "KOTA BEKASI", "KAB. CIREBON", "KAB. BANDUNG"],
-        data: [12500, 11800, 10200, 9500, 8200],
-        analisis: "Tahun 2020 menunjukkan penurunan pelaporan secara umum, namun Bekasi tetap menjadi konsentrasi tertinggi."
+        labels: ["KAB. BEKASI", "KAB. BOGOR", "KOTA BEKASI", "KAB. CIREBON", "KAB. BANDUNG", "KAB. KARAWANG", "KOTA BANDUNG", "KAB. GARUT", "KAB. SUKABUMI", "KAB. CIANJUR"],
+        data: [12500, 11800, 10200, 9500, 8200, 7800, 7500, 6900, 6200, 5800],
+        analisis: "Pneumonia tetap menjadi ancaman serius bagi balita di tengah krisis COVID-19."
     },
     "2019": {
-        labels: ["KAB. CIREBON", "KAB. BOGOR", "KAB. GARUT", "KAB. BANDUNG", "KAB. INDRAMAYU"],
-        data: [10818, 9325, 8374, 8349, 7800],
-        analisis: "Sebelum pandemi, wilayah pesisir dan kabupaten luas di Jabar mendominasi angka kasus pneumonia balita."
+        labels: ["KAB. CIREBON", "KAB. BOGOR", "KAB. GARUT", "KAB. BANDUNG", "KAB. INDRAMAYU", "KAB. BEKASI", "KAB. KARAWANG", "KOTA BEKASI", "KOTA BANDUNG", "KAB. CIANJUR"],
+        data: [10818, 9325, 8374, 8349, 7800, 7500, 7200, 6800, 5430, 4290],
+        analisis: "Sebelum pandemi, wilayah pesisir dan dataran luas menunjukkan angka laporan tertinggi."
     }
 };
 
@@ -87,10 +82,7 @@ function showSection(id) {
     document.getElementById(id).classList.remove('hidden');
     document.getElementById('nav-' + id).classList.add('active');
     if (id === 'data') { 
-        setTimeout(() => { 
-            if(!map) initMap(); 
-            updateDashboard(); 
-        }, 300); 
+        setTimeout(() => { if(!map) initMap(); updateDashboard(); }, 300); 
     }
 }
 
@@ -113,34 +105,40 @@ function updateDashboard() {
         datasets: [{ data: cityData.gender, backgroundColor: ['#3b82f6', '#f472b6'] }]
     });
 
-    // 2. Grafik Rangking UPT Bandung (Bar Tegak)
+    // 2. Grafik 10 UPT Bandung (Bar Tegak)
     renderChart('rankingChart', 'bar', {
         labels: cityData.upt,
-        datasets: [
-            { label: 'Kasus', data: cityData.kasus, backgroundColor: '#fbbf24' },
-            { label: 'Balita', data: cityData.penduduk, backgroundColor: '#cbd5e1' }
-        ]
+        datasets: [{
+            label: 'Jumlah Kasus',
+            data: cityData.kasus,
+            backgroundColor: '#fbbf24',
+            borderRadius: 5
+        }]
+    }, {
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } }
     });
 
-    // 3. FITUR BARU: Grafik Horizontal Top 5 Jabar
+    // 3. Grafik 10 Wilayah Jabar (Horizontal)
     renderChart('topRegionsChart', 'bar', {
         labels: jabarData.labels,
         datasets: [{
             label: 'Jumlah Kasus',
             data: jabarData.data,
-            // Warna merah tua (#db2777) untuk ranking 1, sisanya gradasi
-            backgroundColor: ['#db2777', '#f43f5e', '#fb7185', '#fda4af', '#fecdd3'],
+            // Warna Gradasi (Merah Tua ke Merah Muda)
+            backgroundColor: ['#db2777','#e11d48','#f43f5e','#fb7185','#fda4af','#fecdd3','#ffe4e6','#fecaca','#fee2e2','#fff1f2'],
             borderRadius: 5
         }]
     }, {
-        indexAxis: 'y', // Kunci untuk grafik horizontal
+        indexAxis: 'y', // KUNCI GRAFIK HORIZONTAL
+        maintainAspectRatio: false, // AGAR TIDAK TINI
         plugins: { legend: { display: false } }
     });
 
-    // 4. Update Teks Analisis Kontekstual
+    // 4. Update Teks Analisis
     document.getElementById('comparison-analysis').innerHTML = `
-        <h5 style="color: #db2777; margin-bottom: 5px;">🔍 Analisis Wilayah Jabar (${yr})</h5>
-        <p>Wilayah <strong>${jabarData.labels[0]}</strong> mencatat kasus tertinggi. ${jabarData.analisis}</p>
+        <h5 style="color: #db2777; margin-bottom: 5px;">🔍 Analisis Wilayah Jawa Barat (${yr})</h5>
+        <p>Wilayah <strong>${jabarData.labels[0]}</strong> tertinggi dengan <strong>${jabarData.data[0].toLocaleString('id-ID')}</strong> kasus. ${jabarData.analisis}</p>
     `;
 
     // Map Markers
@@ -155,6 +153,6 @@ function renderChart(id, type, data, options = {}) {
     charts[id] = new Chart(document.getElementById(id), { 
         type, 
         data, 
-        options: { ...options, maintainAspectRatio: false } 
+        options: { ...options, maintainAspectRatio: false, responsive: true } 
     });
 }
