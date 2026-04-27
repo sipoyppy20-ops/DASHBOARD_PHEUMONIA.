@@ -98,4 +98,10 @@ function updateDashboard() {
 function renderChart(id, type, data, options = {}) {
     if (charts[id]) charts[id].destroy();
     charts[id] = new Chart(document.getElementById(id), { type, data, options: { ...options, maintainAspectRatio: false } });
-}
+}// Tambahkan baris sumber di bagian paling bawah teks analisis
+document.getElementById('jabar-analysis').innerHTML = `
+    <strong>💡 Analisis Se-Jawa Barat (${yr}):</strong><br>
+    Berdasarkan data Open Data Jabar, pada tahun ${yr} tercatat total ${jabarData[yr].total.toLocaleString('id-ID')} kasus pneumonia. 
+    ${jabarData[yr].ket}<br>
+    <small><i>Sumber: <a href="https://opendata.jabarprov.go.id" target="_blank">Open Data Jabar</a></i></small>
+`;
