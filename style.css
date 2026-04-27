@@ -1,0 +1,48 @@
+:root {
+    --navy: #1c2541;
+    --cyan: #00b4d8;
+    --female-pink: #f472b6;
+    --male-blue: #3b82f6;
+}
+
+body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; display: flex; }
+
+/* LOGIN BACKGROUND REVISI */
+#login-screen {
+    position: fixed; inset: 0;
+    background: url('images/Gambar_gedungsate.png') no-repeat center center;
+    background-size: cover; display: flex; justify-content: center; align-items: center; z-index: 9999;
+}
+
+#login-screen::before {
+    content: ""; position: absolute; inset: 0;
+    background: rgba(28, 37, 65, 0.75);
+}
+
+.login-card { position: relative; background: white; padding: 40px; border-radius: 25px; text-align: center; width: 450px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+.logos-row img { height: 50px; margin: 0 10px; }
+
+.sidebar { width: 260px; height: 100vh; background: var(--navy); color: white; position: fixed; }
+.nav-item { padding: 18px 30px; cursor: pointer; }
+.nav-item.active { background: var(--cyan); font-weight: 700; border-right: 5px solid white; }
+
+.main-area { margin-left: 260px; width: calc(100% - 260px); padding: 40px; box-sizing: border-box; }
+.glass-card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+
+.hero-img { width: 100%; border-radius: 15px; margin-top: 15px; }
+.news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+.news-card { background: white; padding: 15px; border-radius: 12px; border-top: 4px solid var(--cyan); box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+
+.education-content h3 { color: var(--navy); border-left: 5px solid var(--cyan); padding-left: 15px; margin-top: 25px; }
+.education-content p { line-height: 1.8; text-align: justify; color: #334155; }
+.reference-box { background: #f1f5f9; padding: 15px; border-radius: 10px; margin-top: 20px; font-size: 13px; }
+
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.full-width { grid-column: span 2; }
+#map { height: 450px; border-radius: 15px; border: 2px solid #e2e8f0; }
+.chart-box { height: 250px; }
+.chart-box-large { height: 400px; }
+.desc-box { margin-top: 15px; padding: 15px; background: #fffbeb; border-radius: 10px; border-left: 5px solid #f59e0b; }
+
+.btn-main { background: var(--cyan); color: white; border: none; padding: 14px; border-radius: 10px; font-weight: 700; width: 100%; cursor: pointer; }
+.hidden { display: none !important; }
