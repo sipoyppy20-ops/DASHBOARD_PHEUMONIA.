@@ -1,39 +1,51 @@
-<div id="data" class="content-section hidden">
-    <div class="filter-container">
-        <label>Pilih Tahun:</label>
-        <select id="yearFilter" onchange="updateDashboard()">
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
-            <option value="2021">2021</option>
-            <option value="2020">2020</option>
-            <option value="2019">2019</option>
-        </select>
-    </div>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-    <div class="stats-grid">
-        <div class="card" data-aos="fade-right">
-            <h4>📊 Distribusi Gender (Kota Bandung)</h4>
-            <div class="chart-box"><canvas id="genderChart"></canvas></div>
-        </div>
-
-        <div class="card" data-aos="fade-left">
-            <h4>📈 10 UPT Tertinggi (Kota Bandung)</h4>
-            <div class="chart-box"><canvas id="rankingChart"></canvas></div>
-        </div>
-
-        <div class="card full-width" data-aos="fade-up">
-            <h4>🏆 5 Wilayah Kasus Tertinggi di Jawa Barat</h4>
-            <p style="font-size: 0.8rem; color: #666; margin-bottom: 10px;">Membandingkan posisi Kota Bandung dengan wilayah lain di Jawa Barat.</p>
-            <div class="chart-box-large">
-                <canvas id="topRegionsChart"></canvas>
+    <div id="main-area">
+        <div id="data" class="content-section hidden">
+            <div class="filter-container">
+                <label>Pilih Tahun:</label>
+                <select id="yearFilter" onchange="updateDashboard()">
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                </select>
             </div>
-            <div id="comparison-analysis" class="desc-box" style="background: #fff1f2; border-left: 5px solid #db2777; padding: 15px; margin-top: 15px; border-radius: 8px;"></div>
-        </div>
 
-        <div class="card full-width" data-aos="zoom-in">
-            <h4>📍 Sebaran Lokasi UPT</h4>
-            <div id="map" style="height: 400px; border-radius: 10px; z-index: 1;"></div>
-            <p id="year-desc" class="desc-box" style="margin-top:15px; border-left: 5px solid #3b82f6;"></p>
+            <div class="stats-grid">
+                <div class="card" data-aos="fade-right">
+                    <h4>📊 Distribusi Gender (Kota Bandung)</h4>
+                    <div class="chart-box"><canvas id="genderChart"></canvas></div>
+                </div>
+
+                <div class="card" data-aos="fade-left">
+                    <h4>📈 10 UPT Kasus Tertinggi (Kota Bandung)</h4>
+                    <div class="chart-box-large"><canvas id="rankingChart"></canvas></div>
+                </div>
+
+                <div class="card full-width" data-aos="fade-up">
+                    <h4>🏆 10 Wilayah Kasus Pneumonia Tertinggi di Jawa Barat</h4>
+                    <div class="chart-box-large">
+                        <canvas id="topRegionsChart"></canvas>
+                    </div>
+                    <div id="comparison-analysis"></div>
+                </div>
+
+                <div class="card full-width" data-aos="zoom-in">
+                    <h4>📍 Sebaran Lokasi UPT Kota Bandung</h4>
+                    <div id="map" style="height: 400px; border-radius: 10px;"></div>
+                    <p id="year-desc" class="desc-box"></p>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
